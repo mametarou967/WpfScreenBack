@@ -1,4 +1,5 @@
-﻿using Prism.Mvvm;
+﻿using Prism.Commands;
+using Prism.Mvvm;
 using Prism.Regions;
 using Prism.Services.Dialogs;
 using System;
@@ -14,18 +15,21 @@ namespace WpfScreenBack.ViewModels
     public class ViewBViewModel : BindableBase , INavigationAware
     {
         private readonly IRegionManager regionManager;
+        public DelegateCommand ScreenTouchCommand { get; }
+
+        void ScreenTouchCommandExecuter()
+        {
+            TimerReset();
+        }
 
         public ViewBViewModel(IRegionManager regionManager)
         {
             this.regionManager = regionManager;
+            ScreenTouchCommand = new DelegateCommand(ScreenTouchCommandExecuter);
         }
 
-        // この一定時間経過後の画面がもどる実装に関しては基本的にView遷移時にViewModelのインスタンスが都度生成されることを前提に
-        // 実装を行う
-        // 
         public bool IsNavigationTarget(NavigationContext navigationContext) => false; 
         
-
         public void OnNavigatedFrom(NavigationContext navigationContext)
         {
             TimerStop();
@@ -52,7 +56,7 @@ namespace WpfScreenBack.ViewModels
             // 新しいタイマーの時間をセットする
             this.timer = new DispatcherTimer
             {
-                Interval = TimeSpan.FromMilliseconds(1000)
+                Interval = TimeSpan.FromMilliseconds(3000)
             };
 
             // タイマーが満了した時の処理を追加する
