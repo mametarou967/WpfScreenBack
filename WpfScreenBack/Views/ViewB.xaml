@@ -1,0 +1,10 @@
+﻿<UserControl x:Class="WpfScreenBack.Views.ViewB"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:prism="http://prismlibrary.com/"
+             prism:ViewModelLocator.AutoWireViewModel="True">
+    <Grid>
+        <Label Content="画面B" FontSize="30" Foreground="Green"/>
+            
+    </Grid>
+</UserControl>
